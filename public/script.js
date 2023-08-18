@@ -1,16 +1,23 @@
-const add = () => {
-
+const add = (numOne, numTwo) => {
+    return numOne + numTwo;
 }
  
-const subtract = () => {
-
+const subtract = (numOne, numTwo) => {
+    return numOne - numTwo;
 }
  
-const multiply = () => {
-
+const multiply = (numOne, numTwo) => {
+    return numOne * numTwo;
 }
  
-const divide = () => {
-
+const divide = (numOne, numTwo) => {
+    return numOne / numTwo;
 }
  
+
+
+const operate = (operation, numOne, numTwo) => {
+    return operation(numOne, numTwo);
+}
+
+console.log(operate(multiply, 2, 3));
