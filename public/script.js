@@ -34,15 +34,15 @@ digits.forEach(digit => digit.addEventListener('click', () => {
         displayValue.numOne += digit.innerText;
     };
 
-    console.log(`numOne: ${displayValue.numOne}`);
-    console.log(`numTwo: ${displayValue.numTwo}`);
+    console.log(displayValue.numOne)
+    console.log(displayValue.numTwo)
 }));
 
 
 // Equals
 const operate = (operation, numOne, numTwo) => {
     // Turn values into integers when calculating
-    display.innerText = operation(parseInt(numOne), parseInt(numTwo));
+    display.innerText = operation(parseFloat(numOne), parseFloat(numTwo));
 }
 
 const solve = () => {
@@ -112,4 +112,19 @@ clear.addEventListener('click', () => {
         operand: '',
         numTwo: ''
     };
+});
+
+const backspace = document.querySelector('#delete');
+backspace.addEventListener('click', () => {
+    if (displayValue.numTwo !== '') {
+        displayValue.numTwo = displayValue.numTwo.slice(0, -1);
+    } else if (displayValue.operand !== '') {
+        displayValue.operand = displayValue.operand.slice(0, -1);
+    } else if (displayValue.numOne !== '') {
+        displayValue.numOne = displayValue.numOne.slice(0, -1);
+    };
+
+    // Completely removes last element from display
+    let remaining = display.innerText.slice(0, -1);
+    display.innerText = remaining;
 });
