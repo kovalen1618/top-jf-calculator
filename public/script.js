@@ -1,17 +1,17 @@
 const add = (numOne, numTwo) => {
-    return numOne + numTwo;
+    return Math.round(((numOne + numTwo) + Number.EPSILON) * 100) / 100;
 }
  
 const subtract = (numOne, numTwo) => {
-    return numOne - numTwo;
+    return Math.round(((numOne - numTwo) + Number.EPSILON) * 100) / 100;
 }
  
 const multiply = (numOne, numTwo) => {
-    return numOne * numTwo;
+    return Math.round(((numOne * numTwo) + Number.EPSILON) * 100) / 100;
 }
  
 const divide = (numOne, numTwo) => {
-    return numOne / numTwo;
+    return Math.round(((numOne / numTwo) + Number.EPSILON) * 100) / 100;
 }
  
 
@@ -38,14 +38,6 @@ digits.forEach(digit => digit.addEventListener('click', () => {
     console.log(`numTwo: ${displayValue.numTwo}`);
 }));
 
-const operands = document.querySelectorAll('.operand');
-operands.forEach(operand => operand.addEventListener('click', () => {
-    // Only allows for one operand to be added
-    if (displayValue.operand === '') {
-        display.innerText += operand.innerText;
-        displayValue.operand = operand.innerText;
-    }
-}));
 
 // Equals
 const operate = (operation, numOne, numTwo) => {
@@ -53,8 +45,7 @@ const operate = (operation, numOne, numTwo) => {
     display.innerText = operation(parseInt(numOne), parseInt(numTwo));
 }
 
-const equals = document.querySelector('#equals');
-equals.addEventListener('click', () => {
+const solve = () => {
     switch (displayValue.operand) {
         case '+':
             operate(add, displayValue.numOne, displayValue.numTwo);
@@ -89,6 +80,28 @@ equals.addEventListener('click', () => {
             };
             break;
     };
+}
+
+const operands = document.querySelectorAll('.operand');
+operands.forEach(operand => operand.addEventListener('click', () => {
+    // Only allows for one operand to be added
+    if (displayValue.operand === '') {
+        display.innerText += operand.innerText;
+        displayValue.operand = operand.innerText;
+    } else if (displayValue.operand !== '') {
+        solve();
+        display.innerText += operand.innerText;
+        displayValue.operand = operand.innerText;
+    }
+}));
+
+const equals = document.querySelector('#equals');
+equals.addEventListener('click', () => {
+    if (displayValue.numOne === '0' || displayValue.numTwo === '0') {
+        display.innerText = 'ERROR: Bro, you really tryna divide by zero?'
+    } else if (displayValue.numTwo !== '') {
+        solve();
+    }
 });
 
 const clear = document.querySelector('#clear');
