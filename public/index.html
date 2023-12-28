@@ -11,28 +11,29 @@
 <body>
     <div class="calculator">
         <div id="display"></div>
-        <div id="operations">
-            <button>+</button>
-            <button>-</button>
-            <button>×</button>
-            <button>÷</button>
+        <div id="functions">
+            <button id="clear" data-key="1">CE</button>
+            <button id="delete" data-key="Backspace" data-key="Delete">DEL</button>
+            <button id="equals" data-key="Enter" data-key="NumpadEnter" data-key="Equal">=</button>
         </div>
         <div id="digits">
-            <button class="digit">1</button>
-            <button class="digit">2</button>
-            <button class="digit">3</button>
-            <button class="digit">4</button>
-            <button class="digit">5</button>
-            <button class="digit">6</button>
-            <button class="digit">7</button>
-            <button class="digit">8</button>
-            <button class="digit">9</button>
-            <button class="digit">0</button>
+            <button class="digit" data-key="Digit1">1</button>
+            <button class="digit" data-key="Digit2">2</button>
+            <button class="digit" data-key="Digit3">3</button>
+            <button class="digit" data-key="Digit4">4</button>
+            <button class="digit" data-key="Digit5">5</button>
+            <button class="digit" data-key="Digit6">6</button>
+            <button class="digit" data-key="Digit7">7</button>
+            <button class="digit" data-key="Digit8">8</button>
+            <button class="digit" data-key="Digit9">9</button>
+            <button class="digit" data-key="Digit0">0</button>
+            <button class="digit" data-key="Key.">.</button>
         </div>
-        <div id="functions">
-            <button>CE</button>
-            <button>DEL</button>
-            <button>=</button>
+        <div id="operations">
+            <button class="operand" data-key="NumpadAdd" data-key="">+</button>
+            <button class="operand" data-key="NumpadSubtract">-</button>
+            <button class="operand" data-key="NumpadMultiply">×</button>
+            <button class="operand" data-key="NumpadDivide">÷</button>
         </div>
     </div>
 </body>
