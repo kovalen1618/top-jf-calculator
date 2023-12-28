@@ -1,19 +1,19 @@
 const add = (numOne, numTwo) => {
     return Math.round(((numOne + numTwo) + Number.EPSILON) * 100) / 100;
 }
- 
+
 const subtract = (numOne, numTwo) => {
     return Math.round(((numOne - numTwo) + Number.EPSILON) * 100) / 100;
 }
- 
+
 const multiply = (numOne, numTwo) => {
     return Math.round(((numOne * numTwo) + Number.EPSILON) * 100) / 100;
 }
- 
+
 const divide = (numOne, numTwo) => {
     return Math.round(((numOne / numTwo) + Number.EPSILON) * 100) / 100;
 }
- 
+
 
 // Populate display with chosen number and store for use in operate
 const display = document.getElementById('display');
@@ -23,8 +23,7 @@ let displayValue = {
     numTwo: ''
 };
 
-const digits = document.querySelectorAll('.digit');
-digits.forEach(digit => digit.addEventListener('click', () => {
+const addDigit = (digit) => {
     // Adds first digit together before operand and then next digit and then equals
     display.innerText += digit.innerText;
     // Operand must be present before adding second digit
@@ -33,11 +32,12 @@ digits.forEach(digit => digit.addEventListener('click', () => {
     } else if (displayValue.operand === '') {
         displayValue.numOne += digit.innerText;
     };
+};
 
-    console.log(displayValue.numOne)
-    console.log(displayValue.numTwo)
+const digits = document.querySelectorAll('.digit');
+digits.forEach(digit => digit.addEventListener('click', () => {
+    addDigit(digit);
 }));
-
 
 // Equals
 const operate = (operation, numOne, numTwo) => {
@@ -82,17 +82,21 @@ const solve = () => {
     };
 }
 
-const operands = document.querySelectorAll('.operand');
-operands.forEach(operand => operand.addEventListener('click', () => {
+const addOperand = (operand) => {
     // Only allows for one operand to be added
     if (displayValue.operand === '') {
         display.innerText += operand.innerText;
         displayValue.operand = operand.innerText;
-    } else if (displayValue.operand !== '') {
+    } else if (displayValue.operand !== '' && displayValue.numTwo !== '') {
         solve();
         display.innerText += operand.innerText;
         displayValue.operand = operand.innerText;
     }
+}
+
+const operands = document.querySelectorAll('.operand');
+operands.forEach(operand => operand.addEventListener('click', () => {
+    addOperand(operand);
 }));
 
 const equals = document.querySelector('#equals');
@@ -128,3 +132,22 @@ backspace.addEventListener('click', () => {
     let remaining = display.innerText.slice(0, -1);
     display.innerText = remaining;
 });
+
+// Look at Keydown event for Shift buttons
+
+const pressButton = (e) => {
+    const key = document.querySelector(`[data-key="${e.code}"]`);
+
+    if (key.className === "digit") {
+        addDigit(key)
+    } else if (key.className === "operand") {
+        addOperand(key)
+    } else if (key.className === "Enter" || "NumpadEnter" || "Equal") {
+        solve();
+    }
+
+    console.log(e.code)
+    console.log(key)
+}
+
+window.addEventListener('keydown', pressButton);
